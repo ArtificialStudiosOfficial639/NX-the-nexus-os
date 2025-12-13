@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escape Northern Sentinels</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+/* INTRO */
+#intro, #cutscene, #bossWarning {
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    z-index:500;
+}
+
+#intro{
+    font-size:8vw;
+}
+
+#cutscene{
+    display:none;
+    flex-direction:column;
+    font-size:4vw;
+}
+
+#cutscene p{
+    opacity:0;
+    animation:fade 3s forwards;
+}
+
+@keyframes fade{
+    to{opacity:1}
+}
+
+/* GAME */
+#game{
+    display:none;
+    padding:15px;
+    max-width:600px;
+    margin:auto;
+}
+
+/* HEALTH BAR */
+.bar{
+    width:100%;
+    height:22px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+.fill{
+    height:100%;
+    background:linear-gradient(90deg,red,lime);
+    transition:width 0.4s;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:14px;
+    margin-top:6px;
+    background:#111;
+    color:white;
+    border:1px solid white;
+    font-size:16px;
+    border-radius:10px;
+}
+
+/* LOG */
+#log{
+    height:160px;
+    overflow-y:auto;
+    border:1px solid #333;
+    padding:10px;
+    margin-top:10px;
+    font-size:14px;
+}
+
+/* GAME OVER */
+#gameOver{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:600;
+}
+#gameOver h1{
+    font-size:10vw;
+}
+
+/* BOSS WARNING */
+#bossWarning{
+    display:none;
+    font-size:9vw;
+    color:red;
+    animation:flicker 0.15s infinite;
+}
+
+/* JUMPSCARE */
+#jumpscare{
+    position:fixed;
+    inset:0;
+    background:url("https://i.imgur.com/9Z3ZK5G.png") center/cover;
+    display:none;
+    z-index:900;
+    animation:scare 0.15s infinite;
+}
+
+body.shake{
+    animation:shake 0.15s infinite;
+}
+
+/* ANIMATIONS */
+@keyframes flicker{50%{opacity:0.2}}
+@keyframes scare{50%{transform:scale(1.2)}}
+@keyframes shake{
+    25%{transform:translate(-8px,8px)}
+    50%{transform:translate(8px,-8px)}
+    75%{transform:translate(-8px,-8px)}
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">DEVELOPED BY AS STUDIOS</div>
+
+<div id="cutscene">
+    <p>You came searching for truth...</p>
+    <p>But the island was never empty.</p>
+    <p>Something ancient is watching you.</p>
+</div>
+
+<div id="bossWarning"></div>
+
+<div id="game">
+    <h2>Escape Northern Sentinels</h2>
+
+    <p>Player</p>
+    <div class="bar"><div id="playerBar" class="fill"></div></div>
+
+    <p>Enemy</p>
+    <div class="bar"><div id="enemyBar" class="fill"></div></div>
+
+    <button onclick="attack()">Attack</button>
+    <button onclick="defend()">Defend</button>
+    <button onclick="heal()">Heal</button>
+
+    <div id="log"></div>
+</div>
+
+<div id="gameOver">
+    <h1 id="gameOverText"></h1>
+    <button onclick="restartGame()">Restart</button>
+</div>
+
+<div id="jumpscare"></div>
+
+<audio id="hit" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-hit-213.wav"></audio>
+<audio id="healSound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-reveal-234.wav"></audio>
+<audio id="scream" src="https://assets.mixkit.co/sfx/preview/mixkit-horror-scream-2436.wav"></audio>
+<audio id="heartbeat" src="https://assets.mixkit.co/sfx/preview/mixkit-fast-heartbeat-1224.wav"></audio>
+
+<script>
+let health=100, enemy=150, defending=false;
+let bossMode=false, bossPhase=1;
+
+const intro=document.getElementById("intro");
+const cutscene=document.getElementById("cutscene");
+const game=document.getElementById("game");
+
+setTimeout(()=>{
+    intro.style.display="none";
+    cutscene.style.display="flex";
+
+    setTimeout(()=>{
+        cutscene.style.display="none";
+        game.style.display="block";
+    },7000);
+
+},2000);
+
+function updateBars(){
+    playerBar.style.width=health+"%";
+    enemyBar.style.width=enemy+"%";
+}
+
+function log(t){
+    logDiv.innerHTML+=t+"<br>";
+    logDiv.scrollTop=logDiv.scrollHeight;
+}
+
+const logDiv=document.getElementById("log");
+
+function attack(){
+    if(health<=0||enemy<=0)return;
+    let dmg=rand(10,25);
+    enemy-=dmg; if(enemy<0)enemy=0;
+    hit.play(); log("You attacked for "+dmg);
+    updateBars();
+
+    if(enemy<=0&&!bossMode){startBoss();return;}
+    if(enemy<=0&&bossMode){showGameOver("YOU ESCAPED");return;}
+    enemyTurn();
+}
+
+function defend(){
+    if(health<=0||enemy<=0)return;
+    defending=true; log("You defended");
+    enemyTurn();
+}
+
+function heal(){
+    if(health<=0||enemy<=0)return;
+    health=Math.min(100,health+20);
+    healSound.play(); log("You healed");
+    updateBars(); enemyTurn();
+}
+
+function enemyTurn(){
+    if(health<=0||enemy<=0)return;
+    setTimeout(()=>{
+        let dmg=bossMode?
+        bossPhase==1?rand(15,25):
+        bossPhase==2?rand(25,40):
+        rand(40,60)
+        :rand(5,18);
+
+        if(defending){dmg/=2;defending=false}
+        health-=Math.floor(dmg); if(health<0)health=0;
+        log("Enemy hit you");
+        updateBars();
+
+        if(Math.random()<(bossMode?0.6:0.25))jumpScare();
+        if(enemy<200)bossPhase=2;
+        if(enemy<100)bossPhase=3;
+
+        if(health<=0)showGameOver("YOU NEVER ESCAPED");
+    },500);
+}
+
+function startBoss(){
+    bossMode=true; enemy=300; bossPhase=1;
+    bossWarning.innerText="PLATINUM IS WATCHING";
+    bossWarning.style.display="flex";
+    heartbeat.play();
+    setTimeout(()=>{
+        bossWarning.style.display="none";
+        updateBars();
+    },2000);
+}
+
+function jumpScare(){
+    jumpscare.style.display="block";
+    scream.play();
+    document.body.classList.add("shake");
+    setTimeout(()=>{
+        jumpscare.style.display="none";
+        document.body.classList.remove("shake");
+    },400);
+}
+
+function showGameOver(t){
+    gameOverText.innerText=t;
+    gameOver.style.display="flex";
+}
+
+function restartGame(){
+    health=100; enemy=150;
+    bossMode=false; bossPhase=1;
+    defending=false; logDiv.innerHTML="";
+    gameOver.style.display="none";
+    updateBars();
+}
+
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+updateBars();
+</script>
+
+</body>
+</html>
