@@ -3,166 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escape Northern Sentinels</title>
-
+<title>Escape Northern Sentinels - Fixed Ultimate v3</title>
 <style>
 *{box-sizing:border-box}
-body{
-    margin:0;
-    background:black;
-    color:white;
-    font-family:Arial, sans-serif;
-    overflow:hidden;
-}
-
-/* INTRO */
-#intro, #cutscene, #bossWarning {
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-    z-index:500;
-}
-
-#intro{
-    font-size:8vw;
-}
-
-#cutscene{
-    display:none;
-    flex-direction:column;
-    font-size:4vw;
-}
-
-#cutscene p{
-    opacity:0;
-    animation:fade 3s forwards;
-}
-
-@keyframes fade{
-    to{opacity:1}
-}
-
-/* GAME */
-#game{
-    display:none;
-    padding:15px;
-    max-width:600px;
-    margin:auto;
-}
-
-/* HEALTH BAR */
-.bar{
-    width:100%;
-    height:22px;
-    background:#222;
-    border-radius:20px;
-    overflow:hidden;
-    margin-bottom:10px;
-}
-.fill{
-    height:100%;
-    background:linear-gradient(90deg,red,lime);
-    transition:width 0.4s;
-}
-
-/* BUTTON */
-button{
-    width:100%;
-    padding:14px;
-    margin-top:6px;
-    background:#111;
-    color:white;
-    border:1px solid white;
-    font-size:16px;
-    border-radius:10px;
-}
-
-/* LOG */
-#log{
-    height:160px;
-    overflow-y:auto;
-    border:1px solid #333;
-    padding:10px;
-    margin-top:10px;
-    font-size:14px;
-}
-
-/* GAME OVER */
-#gameOver{
-    position:fixed;
-    inset:0;
-    background:black;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:600;
-}
-#gameOver h1{
-    font-size:10vw;
-}
-
-/* BOSS WARNING */
-#bossWarning{
-    display:none;
-    font-size:9vw;
-    color:red;
-    animation:flicker 0.15s infinite;
-}
-
-/* JUMPSCARE */
-#jumpscare{
-    position:fixed;
-    inset:0;
-    background:url("https://i.imgur.com/9Z3ZK5G.png") center/cover;
-    display:none;
-    z-index:900;
-    animation:scare 0.15s infinite;
-}
-
-body.shake{
-    animation:shake 0.15s infinite;
-}
-
-/* ANIMATIONS */
-@keyframes flicker{50%{opacity:0.2}}
-@keyframes scare{50%{transform:scale(1.2)}}
-@keyframes shake{
-    25%{transform:translate(-8px,8px)}
-    50%{transform:translate(8px,-8px)}
-    75%{transform:translate(-8px,-8px)}
-}
+body{margin:0;background:black;color:white;font-family:Arial, sans-serif;overflow:hidden;}
+#loading,#intro,#cutscene,#gameOver{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;text-align:center;z-index:100;}
+#intro,#cutscene,#gameOver{display:none} #intro{font-size:8vw} #cutscene{flex-direction:column;font-size:4vw}
+#game{display:none;padding:15px;max-width:600px;margin:auto;}
+#darkness{position:fixed;inset:0;background:rgba(0,0,0,0.92);pointer-events:none;display:none;z-index:50;}
+#light{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, transparent 0%, rgba(0,0,0,0.95) 70%);transform:translate(-50%,-50%);}
+.bar{width:100%;height:22px;background:#222;border-radius:20px;overflow:hidden;margin-bottom:10px;}
+.fill{height:100%;transition:width 0.4s;}
+#playerBar{background:lime} #enemyBar{background:red}
+button{width:100%;padding:14px;margin-top:6px;background:#111;color:white;border:1px solid white;font-size:16px;border-radius:10px;}
+button:disabled{opacity:0.4;}
+#log{height:160px;overflow-y:auto;border:1px solid #333;padding:10px;margin-top:10px;font-size:14px;}
+#gameOver{flex-direction:column;} #gameOver h1{font-size:10vw;}
+#jumpscare{position:fixed;inset:0;background:url("https://i.imgur.com/9Z3ZK5G.png") center/cover;display:none;z-index:200;animation:shake 0.12s infinite;}
+@keyframes shake{25%{transform:translate(-10px,10px)}50%{transform:translate(10px,-10px)}75%{transform:translate(-10px,-10px)}}
 </style>
 </head>
 
 <body>
-
+<div id="loading">LOADING...</div>
 <div id="intro">DEVELOPED BY AS STUDIOS</div>
-
 <div id="cutscene">
-    <p>You came searching for truth...</p>
-    <p>But the island was never empty.</p>
-    <p>Something ancient is watching you.</p>
+    <p>The forest goes silent.</p>
+    <p>The light begins to fail.</p>
+    <p>It knows you are here.</p>
 </div>
 
-<div id="bossWarning"></div>
+<div id="darkness"><div id="light"></div></div>
 
 <div id="game">
     <h2>Escape Northern Sentinels</h2>
-
-    <p>Player</p>
-    <div class="bar"><div id="playerBar" class="fill"></div></div>
-
-    <p>Enemy</p>
-    <div class="bar"><div id="enemyBar" class="fill"></div></div>
+    <p>Player</p><div class="bar"><div id="playerBar" class="fill"></div></div>
+    <p id="enemyName">Enemy</p><div class="bar"><div id="enemyBar" class="fill"></div></div>
 
     <button onclick="attack()">Attack</button>
     <button onclick="defend()">Defend</button>
     <button onclick="heal()">Heal</button>
+    <button id="superHealBtn" onclick="superHeal()" disabled>SUPER HEAL</button>
+    <button onclick="toggleLight()">Flashlight</button>
+    <button id="superBtn" onclick="superAttack()" disabled>SUPER ATTACK</button>
 
     <div id="log"></div>
 </div>
@@ -174,126 +57,185 @@ body.shake{
 
 <div id="jumpscare"></div>
 
+<!-- SOUNDS -->
 <audio id="hit" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-hit-213.wav"></audio>
-<audio id="healSound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-reveal-234.wav"></audio>
 <audio id="scream" src="https://assets.mixkit.co/sfx/preview/mixkit-horror-scream-2436.wav"></audio>
-<audio id="heartbeat" src="https://assets.mixkit.co/sfx/preview/mixkit-fast-heartbeat-1224.wav"></audio>
+<audio id="superSound" src="https://assets.mixkit.co/sfx/preview/mixkit-explosion-1682.wav"></audio>
+<audio id="healSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-game-notification-269.wav"></audio>
+<audio id="phase2Sound" src="https://assets.mixkit.co/sfx/preview/mixkit-monster-roar-217.wav"></audio>
+<audio id="miniHit" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-hit-216.wav"></audio>
+<audio id="superHealSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-level-up-1922.wav"></audio>
 
 <script>
-let health=100, enemy=150, defending=false;
-let bossMode=false, bossPhase=1;
-
+/* ELEMENTS */
+const loading=document.getElementById("loading");
 const intro=document.getElementById("intro");
 const cutscene=document.getElementById("cutscene");
 const game=document.getElementById("game");
+const playerBar=document.getElementById("playerBar");
+const enemyBar=document.getElementById("enemyBar");
+const enemyName=document.getElementById("enemyName");
+const logDiv=document.getElementById("log");
+const superBtn=document.getElementById("superBtn");
+const superHealBtn=document.getElementById("superHealBtn");
+const gameOver=document.getElementById("gameOver");
+const gameOverText=document.getElementById("gameOverText");
+const jumpscare=document.getElementById("jumpscare");
+const darkness=document.getElementById("darkness");
+const light=document.getElementById("light");
 
+/* SOUNDS */
+const hit=document.getElementById("hit");
+const scream=document.getElementById("scream");
+const superSound=document.getElementById("superSound");
+const healSound=document.getElementById("healSound");
+const phase2Sound=document.getElementById("phase2Sound");
+const miniHit=document.getElementById("miniHit");
+const superHealSound=document.getElementById("superHealSound");
+
+/* GAME DATA */
+let health=100;
+let defending=false, moveCount=0, healCount=0;
+let phase2=false;
+let lightOn=false;
+let bossIndex=0;
+let miniWave=false;
+let miniEnemies=0;
+let bossMaxHP=0;
+let bossHP=0;
+let totalMiniEnemies=0;
+
+const bosses=[
+    {name:"Boss 1",hp:150,mini:2},
+    {name:"Boss 2",hp:220,mini:3},
+    {name:"Boss 3",hp:300,mini:4}
+];
+
+/* FLOW */
 setTimeout(()=>{
-    intro.style.display="none";
-    cutscene.style.display="flex";
-
+    loading.style.display="none";
+    intro.style.display="flex";
     setTimeout(()=>{
-        cutscene.style.display="none";
-        game.style.display="block";
-    },7000);
-
+        intro.style.display="none";
+        cutscene.style.display="flex";
+        setTimeout(()=>{
+            cutscene.style.display="none";
+            game.style.display="block";
+            startBoss();
+        },5000);
+    },2000);
 },2000);
 
+function startBoss(){
+    if(bossIndex>=bosses.length){showGameOver("ALL BOSSES DEFEATED");return;}
+    health=100; defending=false; moveCount=0; healCount=0;
+    superBtn.disabled=true; superHealBtn.disabled=true;
+    phase2=false; miniWave=false;
+    bossMaxHP=bosses[bossIndex].hp; bossHP=bossMaxHP;
+    enemyName.innerText=bosses[bossIndex].name;
+    logDiv.innerHTML=`Facing ${bosses[bossIndex].name}!<br>`;
+    updateBars();
+}
+
+/* FUNCTIONS */
 function updateBars(){
-    playerBar.style.width=health+"%";
-    enemyBar.style.width=enemy+"%";
+    playerBar.style.width = health+"%";
+    if(miniWave){
+        enemyBar.style.width = (miniEnemies/totalMiniEnemies*100)+"%";
+    } else {
+        enemyBar.style.width = (bossHP/bossMaxHP*100)+"%";
+    }
 }
 
-function log(t){
-    logDiv.innerHTML+=t+"<br>";
-    logDiv.scrollTop=logDiv.scrollHeight;
-}
-
-const logDiv=document.getElementById("log");
+function log(t){logDiv.innerHTML+=t+"<br>";logDiv.scrollTop=logDiv.scrollHeight;}
+function countMove(){moveCount++; if(moveCount>=3) superBtn.disabled=false;}
+function countHeal(){healCount++; if(healCount>=5) superHealBtn.disabled=false;}
 
 function attack(){
-    if(health<=0||enemy<=0)return;
-    let dmg=rand(10,25);
-    enemy-=dmg; if(enemy<0)enemy=0;
-    hit.play(); log("You attacked for "+dmg);
-    updateBars();
-
-    if(enemy<=0&&!bossMode){startBoss();return;}
-    if(enemy<=0&&bossMode){showGameOver("YOU ESCAPED");return;}
-    enemyTurn();
+    if(health<=0||(bossHP<=0 && !miniWave))return;
+    if(miniWave){miniAttack();return;}
+    let dmg=rand(20,30); bossHP-=dmg;
+    hit.play(); log(`You attacked (-${dmg})`);
+    countMove(); updateBars(); enemyTurn();
 }
 
-function defend(){
-    if(health<=0||enemy<=0)return;
-    defending=true; log("You defended");
-    enemyTurn();
-}
-
-function heal(){
-    if(health<=0||enemy<=0)return;
-    health=Math.min(100,health+20);
-    healSound.play(); log("You healed");
+function superAttack(){
+    if(superBtn.disabled)return;
+    if(miniWave){miniAttack(true);return;}
+    let dmg=rand(70,80); bossHP-=dmg;
+    superSound.play(); jumpScare(); log(`SUPER ATTACK (-${dmg})`);
+    moveCount=0; superBtn.disabled=true;
     updateBars(); enemyTurn();
 }
 
+function defend(){defending=true; log("You defended"); countMove(); enemyTurn();}
+
+function heal(){
+    health=Math.min(100,health+40);
+    healSound.play(); log("You healed +40 HP");
+    countMove(); countHeal(); updateBars(); enemyTurn();
+}
+
+function superHeal(){
+    health=100; superHealSound.play(); log("SUPER HEAL! HP FULL RESTORED");
+    superHealBtn.disabled=true; healCount=0; updateBars(); enemyTurn();
+}
+
 function enemyTurn(){
-    if(health<=0||enemy<=0)return;
+    if(miniWave){miniEnemyTurn(); return;}
+    if(bossHP<=0){ startMiniWave(); return;} // skip enemy turn if boss dead
+    if(bossHP<=bossMaxHP/2 && !phase2){phase2=true;phase2Sound.play(); jumpScare(); log(`${bosses[bossIndex].name} enraged!`);}
     setTimeout(()=>{
-        let dmg=bossMode?
-        bossPhase==1?rand(15,25):
-        bossPhase==2?rand(25,40):
-        rand(40,60)
-        :rand(5,18);
-
-        if(defending){dmg/=2;defending=false}
-        health-=Math.floor(dmg); if(health<0)health=0;
-        log("Enemy hit you");
+        let dmg=phase2?rand(20,35):rand(12,25);
+        if(defending){dmg=Math.floor(dmg/2); defending=false;}
+        health-=dmg;
+        if(!lightOn){health-=5; if(Math.random()<0.4)jumpScare();}
+        log(`${bosses[bossIndex].name} attacked (-${dmg})`);
         updateBars();
-
-        if(Math.random()<(bossMode?0.6:0.25))jumpScare();
-        if(enemy<200)bossPhase=2;
-        if(enemy<100)bossPhase=3;
-
-        if(health<=0)showGameOver("YOU NEVER ESCAPED");
-    },500);
+        if(health<=0) showGameOver("YOU DIED");
+    },phase2?350:600);
 }
 
-function startBoss(){
-    bossMode=true; enemy=300; bossPhase=1;
-    bossWarning.innerText="PLATINUM IS WATCHING";
-    bossWarning.style.display="flex";
-    heartbeat.play();
-    setTimeout(()=>{
-        bossWarning.style.display="none";
+/* MINI WAVE */
+function startMiniWave(){
+    if(bosses[bossIndex].mini>0){
+        miniWave=true;
+        totalMiniEnemies=miniEnemies=bosses[bossIndex].mini;
+        enemyName.innerText="Mini Enemies";
+        log(`Mini wave! ${miniEnemies} enemies appear!`);
         updateBars();
-    },2000);
+    } else {
+        bossIndex++; startBoss();
+    }
 }
 
-function jumpScare(){
-    jumpscare.style.display="block";
-    scream.play();
-    document.body.classList.add("shake");
-    setTimeout(()=>{
-        jumpscare.style.display="none";
-        document.body.classList.remove("shake");
-    },400);
+function miniAttack(superAtk=false){
+    let dmg=superAtk?rand(25,40):rand(8,15);
+    miniEnemies-=1;
+    miniHit.play();
+    log(`You attacked mini enemy (-${dmg})`);
+    if(miniEnemies<=0){miniWave=false; log("Mini wave defeated!"); bossIndex++; startBoss(); return;}
+    updateBars(); miniEnemyTurn();
 }
 
-function showGameOver(t){
-    gameOverText.innerText=t;
-    gameOver.style.display="flex";
-}
-
-function restartGame(){
-    health=100; enemy=150;
-    bossMode=false; bossPhase=1;
-    defending=false; logDiv.innerHTML="";
-    gameOver.style.display="none";
+function miniEnemyTurn(){
+    let dmg=rand(5,12);
+    if(defending){dmg=Math.floor(dmg/2); defending=false;}
+    health-=dmg;
+    if(!lightOn && Math.random()<0.4)jumpScare();
+    log(`Mini enemy attacked (-${dmg})`);
     updateBars();
+    if(health<=0) showGameOver("YOU FU**ED BY PLATINUM!");
 }
 
-function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+/* OTHER */
+function toggleLight(){lightOn=!lightOn; darkness.style.display=lightOn?"block":"none";}
+document.addEventListener("mousemove",e=>{light.style.left=e.clientX+"px";light.style.top=e.clientY+"px";});
+function jumpScare(){jumpscare.style.display="block"; scream.play(); setTimeout(()=>jumpscare.style.display="none",250);}
+function showGameOver(t){gameOverText.innerText=t; gameOver.style.display="flex";}
+function restartGame(){bossIndex=0; startBoss(); gameOver.style.display="none"; healCount=0; superHealBtn.disabled=true;}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 updateBars();
 </script>
-
 </body>
 </html>
