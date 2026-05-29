@@ -1,0 +1,143 @@
+:root {
+    --bg: #030304;
+    --card-bg: rgba(23, 23, 28, 0.6);
+    --accent: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.25);
+    --border: rgba(255, 255, 255, 0.08);
+    --text-main: #f0f0f2;
+    --text-dim: #94949e;
+    --gap: 30px;
+    --glass: rgba(255, 255, 255, 0.02);
+}
+
+body {
+    background-color: var(--bg);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(123, 47, 247, 0.07) 0%, transparent 50%);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: entry 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.mainbar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--gap);
+    padding: 20px 0;
+}
+
+/* Card Container */
+.pro-cards {
+    position: relative; /* Layers ko strictly box ke andar rakhne ke liye */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    text-decoration: none;
+    overflow: hidden; /* Taaki zooming image card se bahar na nikle */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* Entry Animation Trigger */
+#an-1 { animation: entry 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.1s forwards; }
+#an-2 { animation: entry 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards; }
+#an-3 { animation: entry 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards; }
+#an-4 { animation: entry 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards; }
+
+/* Background Image Layer */
+.card-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05; /* Shuruat mein bilkul minimal dikhega */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+    z-index: 1;
+}
+
+/* Dark Overlay Layer taaki text hamesha readable rahe */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(3, 3, 4, 0.4) 0%, rgba(3, 3, 4, 0.8) 100%);
+    transition: background 0.4s ease;
+    z-index: 2;
+}
+
+/* Card Text */
+.text {
+    position: relative;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    z-index: 3; /* Sabse upar dikhega */
+    transition: all 0.4s ease;
+}
+
+/* Hover Effects (The Magic Point) */
+.pro-cards:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 35px var(--accent-glow), inset 0 0 15px rgba(0, 242, 255, 0.15);
+}
+
+/* Hover par background image zoom hogi aur uski opacity badhegi */
+.pro-cards:hover .card-bg-img {
+    transform: scale(1.12); /* 12% scale zoom */
+    opacity: 0.35; /* Cyberpunk image pop-up high brightness */
+}
+
+/* Hover par text neon banega aur thoda upar move hoga balance ke liye */
+.pro-cards:hover .text {
+    color: var(--accent);
+    text-shadow: 0 0 15px var(--accent-glow), 0 0 5px #fff;
+    transform: translateY(-2px);
+}
+
+@keyframes entry {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

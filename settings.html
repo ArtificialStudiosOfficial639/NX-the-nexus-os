@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>settings | nexus os</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    <div class="settings-container">
+        <h1 class="title">Nexus OS Settings</h1>
+        
+        <div class="settings-list">
+            <div class="bars">  
+                <span class="setting-text">Color theme</span> 
+                <div class="toggle-button">
+                    <div class="scroll-circle"></div>
+                </div>
+            </div>
+            
+            <div class="bars">  
+                <span class="setting-text">Font colour</span> 
+                <div class="toggle-button">
+                    <div class="scroll-circle"></div>
+                </div>
+            </div>
+            
+            <div class="bars"> 
+                <span class="setting-text">Hover feature</span>
+                <div class="toggle-button">
+                    <div class="scroll-circle"></div>
+                </div>
+            </div>
+            
+            <div class="bars">
+                <span class="setting-text">System Performance</span>
+                <div class="toggle-button">
+                    <div class="scroll-circle"></div>
+                </div>
+            </div>
+            
+            <div class="bars"> 
+                <span class="setting-text">Cloud Sync</span>
+                <div class="toggle-button">
+                    <div class="scroll-circle"></div>
+                </div>
+            </div>
+            
+            <div class="bars">
+                <span class="setting-text">Developer Mode</span>
+                <div class="toggle-button">
+                    <div class="scroll-circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Saare toggle buttons ko select karein
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 'active' class ko toggle karein click par
+                button.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,241 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escape Northern Sentinels - Fixed Ultimate v3</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:black;color:white;font-family:Arial, sans-serif;overflow:hidden;}
-#loading,#intro,#cutscene,#gameOver{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;text-align:center;z-index:100;}
-#intro,#cutscene,#gameOver{display:none} #intro{font-size:8vw} #cutscene{flex-direction:column;font-size:4vw}
-#game{display:none;padding:15px;max-width:600px;margin:auto;}
-#darkness{position:fixed;inset:0;background:rgba(0,0,0,0.92);pointer-events:none;display:none;z-index:50;}
-#light{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, transparent 0%, rgba(0,0,0,0.95) 70%);transform:translate(-50%,-50%);}
-.bar{width:100%;height:22px;background:#222;border-radius:20px;overflow:hidden;margin-bottom:10px;}
-.fill{height:100%;transition:width 0.4s;}
-#playerBar{background:lime} #enemyBar{background:red}
-button{width:100%;padding:14px;margin-top:6px;background:#111;color:white;border:1px solid white;font-size:16px;border-radius:10px;}
-button:disabled{opacity:0.4;}
-#log{height:160px;overflow-y:auto;border:1px solid #333;padding:10px;margin-top:10px;font-size:14px;}
-#gameOver{flex-direction:column;} #gameOver h1{font-size:10vw;}
-#jumpscare{position:fixed;inset:0;background:url("https://i.imgur.com/9Z3ZK5G.png") center/cover;display:none;z-index:200;animation:shake 0.12s infinite;}
-@keyframes shake{25%{transform:translate(-10px,10px)}50%{transform:translate(10px,-10px)}75%{transform:translate(-10px,-10px)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Freelance OS</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
-
 <body>
-<div id="loading">LOADING...</div>
-<div id="intro">DEVELOPED BY AS STUDIOS</div>
-<div id="cutscene">
-    <p>The forest goes silent.</p>
-    <p>The light begins to fail.</p>
-    <p>It knows you are here.</p>
-</div>
 
-<div id="darkness"><div id="light"></div></div>
+    <main class="dashboard-wrapper">
+        <nav class="sidebar">
+            <div class="logo">NX</div>
+            <ul class="nav-links">
+                <li class="nav-item active"><a href="#">Overview</a></li>
+                <li class="nav-item"><a href="projects.html">Projects</a></li>
+                <li class="nav-item"><a href="finances.html">Finances</a></li>
+                <li class="nav-item"><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
 
-<div id="game">
-    <h2>Escape Northern Sentinels</h2>
-    <p>Player</p><div class="bar"><div id="playerBar" class="fill"></div></div>
-    <p id="enemyName">Enemy</p><div class="bar"><div id="enemyBar" class="fill"></div></div>
+        <section class="content-area">
+            <div class="content-container">
+                <header class="main-header">
+                    <div class="header-text">
+                        <h1 class="reveal-text">System Overview</h1>
+                        <p class="subtitle">Welcome back, your pipeline looks healthy today.</p>
+                    </div>
+                    <div class="status-pill">● System Optimal</div>
+                </header>
 
-    <button onclick="attack()">Attack</button>
-    <button onclick="defend()">Defend</button>
-    <button onclick="heal()">Heal</button>
-    <button id="superHealBtn" onclick="superHeal()" disabled>SUPER HEAL</button>
-    <button onclick="toggleLight()">Flashlight</button>
-    <button id="superBtn" onclick="superAttack()" disabled>SUPER ATTACK</button>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="label">Total Revenue</span>
+                        <h2 class="counter" data-target="12450">$0</h2>
+                        <div class="trend positive">+12% this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="label">Active Tasks</span>
+                        <h2 class="counter" data-target="18">0</h2>
+                        <div class="trend">4 due tomorrow</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="label">Efficiency</span>
+                        <h2 class="counter" data-target="94" data-suffix="%">0%</h2>
+                        <div class="trend positive">Upper Quartile</div>
+                    </div>
+                </div>
 
-    <div id="log"></div>
-</div>
+                <div class="section-label">Active Engagements</div>
+                <div class="project-feed">
+                    <div class="project-card">
+                        <div class="card-header">
+                            <h3>Cyber-Branding v2</h3>
+                            <span class="tag">High Priority</span>
+                        </div>
+                        <p>Refining the visual identity for Neo-Tokyo systems.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+                            <span class="percentage">70%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="card-header">
+                            <h3>AI Interface Design</h3>
+                            <span class="tag">In Review</span>
+                        </div>
+                        <p>User testing for the neural-link dashboard components.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+                            <span class="percentage">40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-<div id="gameOver">
-    <h1 id="gameOverText"></h1>
-    <button onclick="restartGame()">Restart</button>
-</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // GSAP Counter Trick for Beast-Level Entry Effect
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const isCurrency = counter.innerText.includes('$');
+                const suffix = counter.getAttribute('data-suffix') || '';
+                
+                let countObj = { value: 0 };
+                
+                gsap.to(countObj, {
+                    value: target,
+                    duration: 1.8,
+                    ease: "power3.out",
+                    onUpdate: () => {
+                        // Formatting currency vs normal counters
+                        if (isCurrency) {
+                            counter.innerText = `$${Math.floor(countObj.value).toLocaleString()}`;
+                        } else {
+                            counter.innerText = Math.floor(countObj.value) + suffix;
+                        }
+                    }
+                });
+            });
 
-<div id="jumpscare"></div>
-
-<!-- SOUNDS -->
-<audio id="hit" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-hit-213.wav"></audio>
-<audio id="scream" src="https://assets.mixkit.co/sfx/preview/mixkit-horror-scream-2436.wav"></audio>
-<audio id="superSound" src="https://assets.mixkit.co/sfx/preview/mixkit-explosion-1682.wav"></audio>
-<audio id="healSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-game-notification-269.wav"></audio>
-<audio id="phase2Sound" src="https://assets.mixkit.co/sfx/preview/mixkit-monster-roar-217.wav"></audio>
-<audio id="miniHit" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-hit-216.wav"></audio>
-<audio id="superHealSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-level-up-1922.wav"></audio>
-
-<script>
-/* ELEMENTS */
-const loading=document.getElementById("loading");
-const intro=document.getElementById("intro");
-const cutscene=document.getElementById("cutscene");
-const game=document.getElementById("game");
-const playerBar=document.getElementById("playerBar");
-const enemyBar=document.getElementById("enemyBar");
-const enemyName=document.getElementById("enemyName");
-const logDiv=document.getElementById("log");
-const superBtn=document.getElementById("superBtn");
-const superHealBtn=document.getElementById("superHealBtn");
-const gameOver=document.getElementById("gameOver");
-const gameOverText=document.getElementById("gameOverText");
-const jumpscare=document.getElementById("jumpscare");
-const darkness=document.getElementById("darkness");
-const light=document.getElementById("light");
-
-/* SOUNDS */
-const hit=document.getElementById("hit");
-const scream=document.getElementById("scream");
-const superSound=document.getElementById("superSound");
-const healSound=document.getElementById("healSound");
-const phase2Sound=document.getElementById("phase2Sound");
-const miniHit=document.getElementById("miniHit");
-const superHealSound=document.getElementById("superHealSound");
-
-/* GAME DATA */
-let health=100;
-let defending=false, moveCount=0, healCount=0;
-let phase2=false;
-let lightOn=false;
-let bossIndex=0;
-let miniWave=false;
-let miniEnemies=0;
-let bossMaxHP=0;
-let bossHP=0;
-let totalMiniEnemies=0;
-
-const bosses=[
-    {name:"Boss 1",hp:150,mini:2},
-    {name:"Boss 2",hp:220,mini:3},
-    {name:"Boss 3",hp:300,mini:4}
-];
-
-/* FLOW */
-setTimeout(()=>{
-    loading.style.display="none";
-    intro.style.display="flex";
-    setTimeout(()=>{
-        intro.style.display="none";
-        cutscene.style.display="flex";
-        setTimeout(()=>{
-            cutscene.style.display="none";
-            game.style.display="block";
-            startBoss();
-        },5000);
-    },2000);
-},2000);
-
-function startBoss(){
-    if(bossIndex>=bosses.length){showGameOver("ALL BOSSES DEFEATED");return;}
-    health=100; defending=false; moveCount=0; healCount=0;
-    superBtn.disabled=true; superHealBtn.disabled=true;
-    phase2=false; miniWave=false;
-    bossMaxHP=bosses[bossIndex].hp; bossHP=bossMaxHP;
-    enemyName.innerText=bosses[bossIndex].name;
-    logDiv.innerHTML=`Facing ${bosses[bossIndex].name}!<br>`;
-    updateBars();
-}
-
-/* FUNCTIONS */
-function updateBars(){
-    playerBar.style.width = health+"%";
-    if(miniWave){
-        enemyBar.style.width = (miniEnemies/totalMiniEnemies*100)+"%";
-    } else {
-        enemyBar.style.width = (bossHP/bossMaxHP*100)+"%";
-    }
-}
-
-function log(t){logDiv.innerHTML+=t+"<br>";logDiv.scrollTop=logDiv.scrollHeight;}
-function countMove(){moveCount++; if(moveCount>=3) superBtn.disabled=false;}
-function countHeal(){healCount++; if(healCount>=5) superHealBtn.disabled=false;}
-
-function attack(){
-    if(health<=0||(bossHP<=0 && !miniWave))return;
-    if(miniWave){miniAttack();return;}
-    let dmg=rand(20,30); bossHP-=dmg;
-    hit.play(); log(`You attacked (-${dmg})`);
-    countMove(); updateBars(); enemyTurn();
-}
-
-function superAttack(){
-    if(superBtn.disabled)return;
-    if(miniWave){miniAttack(true);return;}
-    let dmg=rand(70,80); bossHP-=dmg;
-    superSound.play(); jumpScare(); log(`SUPER ATTACK (-${dmg})`);
-    moveCount=0; superBtn.disabled=true;
-    updateBars(); enemyTurn();
-}
-
-function defend(){defending=true; log("You defended"); countMove(); enemyTurn();}
-
-function heal(){
-    health=Math.min(100,health+40);
-    healSound.play(); log("You healed +40 HP");
-    countMove(); countHeal(); updateBars(); enemyTurn();
-}
-
-function superHeal(){
-    health=100; superHealSound.play(); log("SUPER HEAL! HP FULL RESTORED");
-    superHealBtn.disabled=true; healCount=0; updateBars(); enemyTurn();
-}
-
-function enemyTurn(){
-    if(miniWave){miniEnemyTurn(); return;}
-    if(bossHP<=0){ startMiniWave(); return;} // skip enemy turn if boss dead
-    if(bossHP<=bossMaxHP/2 && !phase2){phase2=true;phase2Sound.play(); jumpScare(); log(`${bosses[bossIndex].name} enraged!`);}
-    setTimeout(()=>{
-        let dmg=phase2?rand(20,35):rand(12,25);
-        if(defending){dmg=Math.floor(dmg/2); defending=false;}
-        health-=dmg;
-        if(!lightOn){health-=5; if(Math.random()<0.4)jumpScare();}
-        log(`${bosses[bossIndex].name} attacked (-${dmg})`);
-        updateBars();
-        if(health<=0) showGameOver("YOU DIED");
-    },phase2?350:600);
-}
-
-/* MINI WAVE */
-function startMiniWave(){
-    if(bosses[bossIndex].mini>0){
-        miniWave=true;
-        totalMiniEnemies=miniEnemies=bosses[bossIndex].mini;
-        enemyName.innerText="Mini Enemies";
-        log(`Mini wave! ${miniEnemies} enemies appear!`);
-        updateBars();
-    } else {
-        bossIndex++; startBoss();
-    }
-}
-
-function miniAttack(superAtk=false){
-    let dmg=superAtk?rand(25,40):rand(8,15);
-    miniEnemies-=1;
-    miniHit.play();
-    log(`You attacked mini enemy (-${dmg})`);
-    if(miniEnemies<=0){miniWave=false; log("Mini wave defeated!"); bossIndex++; startBoss(); return;}
-    updateBars(); miniEnemyTurn();
-}
-
-function miniEnemyTurn(){
-    let dmg=rand(5,12);
-    if(defending){dmg=Math.floor(dmg/2); defending=false;}
-    health-=dmg;
-    if(!lightOn && Math.random()<0.4)jumpScare();
-    log(`Mini enemy attacked (-${dmg})`);
-    updateBars();
-    if(health<=0) showGameOver("YOU FU**ED BY PLATINUM!");
-}
-
-/* OTHER */
-function toggleLight(){lightOn=!lightOn; darkness.style.display=lightOn?"block":"none";}
-document.addEventListener("mousemove",e=>{light.style.left=e.clientX+"px";light.style.top=e.clientY+"px";});
-function jumpScare(){jumpscare.style.display="block"; scream.play(); setTimeout(()=>jumpscare.style.display="none",250);}
-function showGameOver(t){gameOverText.innerText=t; gameOver.style.display="flex";}
-function restartGame(){bossIndex=0; startBoss(); gameOver.style.display="none"; healCount=0; superHealBtn.disabled=true;}
-function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-updateBars();
-</script>
+            // Smooth subtle entry for grid cards
+            gsap.from(".stat-card", {
+                opacity: 0,
+                y: 20,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+    </script>
 </body>
 </html>

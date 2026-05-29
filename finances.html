@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>finances | nexus os</title>
+    <link rel="stylesheet" href="finances.css">
+</head>
+<body>
+    <div class="finance-container">
+        <h1 class="title">Nexus Finance Hub</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card" id="card-1">
+                <div class="stat-label">Net Worth</div>
+                <div class="stat-value text-glow">$12,450.80</div>
+                <div class="stat-change positive">+4.2% this week</div>
+            </div>
+            <div class="stat-card" id="card-2">
+                <div class="stat-label">Monthly Budget</div>
+                <div class="stat-value">$3,200.00</div>
+                <div class="progress-bar"><div class="progress" style="width: 68%;"></div></div>
+            </div>
+            <div class="stat-card" id="card-3">
+                <div class="stat-label">Investments</div>
+                <div class="stat-value" style="color: #7b2ff7;">$5,800.00</div>
+                <div class="stat-change positive">+12.5% ROI</div>
+            </div>
+        </div>
+
+        <div class="content-sections">
+            <div class="section-box">
+                <h2 class="section-title">Recent Matrix Logs</h2>
+                <div class="log-item">
+                    <div class="log-details">
+                        <span class="log-name">Server Node Upgrade</span>
+                        <span class="log-date">Today, 2:30 PM</span>
+                    </div>
+                    <span class="log-amount negative">-$120.00</span>
+                </div>
+                <div class="log-item">
+                    <div class="log-details">
+                        <span class="log-name">Freelance Project Payout</span>
+                        <span class="log-date">Yesterday</span>
+                    </div>
+                    <span class="log-amount positive">+$1,500.00</span>
+                </div>
+                <div class="log-item">
+                    <div class="log-details">
+                        <span class="log-name">Cloud Storage Subscription</span>
+                        <span class="log-date">24 May 2026</span>
+                    </div>
+                    <span class="log-amount negative">-$15.00</span>
+                </div>
+            </div>
+
+            <div class="section-box control-panel">
+                <h2 class="section-title">Quick Action Panel</h2>
+                <div class="action-buttons">
+                    <button class="btn btn-add" id="addLogBtn">+ Log Transaction</button>
+                    <button class="btn btn-sec">Generate Report</button>
+                    <button class="btn btn-sec">Invest Credits</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive Button Alert just to make it active
+        document.getElementById('addLogBtn').addEventListener('click', () => {
+            alert('Nexus Log System Initialized: Enter transaction amount...');
+        });
+    </script>
+</body>
+</html>

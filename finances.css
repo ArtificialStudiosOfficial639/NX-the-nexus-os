@@ -1,0 +1,237 @@
+:root {
+    --bg: #030304;
+    --card-bg: rgba(23, 23, 28, 0.4);
+    --accent: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.2);
+    --border: rgba(255, 255, 255, 0.06);
+    --text-main: #f0f0f2;
+    --text-dim: #94949e;
+    --success: #00ff88;
+    --danger: #ff3366;
+    --gap: 24px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    background-image: 
+        radial-gradient(circle at 100% 0%, rgba(0, 242, 255, 0.06) 0%, transparent 40%), 
+        radial-gradient(circle at 0% 100%, rgba(123, 47, 247, 0.06) 0%, transparent 40%);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px;
+}
+
+.finance-container {
+    width: 100%;
+    max-width: 900px;
+    animation: pageEntry 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #fff 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Grid layout for Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--gap);
+    margin-bottom: var(--gap);
+}
+
+.stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* Card entry delays */
+#card-1 { animation: cardSlide 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.1s forwards; }
+#card-2 { animation: cardSlide 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards; }
+#card-3 { animation: cardSlide 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards; }
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 30px var(--accent-glow);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.text-glow {
+    text-shadow: 0 0 15px var(--accent-glow);
+    color: var(--accent);
+}
+
+.stat-change {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.positive { color: var(--success); }
+.negative { color: var(--danger); }
+
+/* Progress bar for budget */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #7b2ff7, var(--accent));
+    border-radius: 10px;
+}
+
+/* Two Column Bottom Layout */
+.content-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--gap);
+}
+
+.section-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #fff;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+}
+
+/* Transaction Item Styling */
+.log-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.log-item:last-child { border: none; }
+
+.log-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.log-name {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.log-date {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.log-amount {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Control Panel Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add {
+    background: var(--accent);
+    border: none;
+    color: #030304;
+    box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--accent-glow);
+    background: #fff;
+}
+
+.btn-sec {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+.btn-sec:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+/* Keyframe Animations */
+@keyframes pageEntry {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 500px) {
+    body { padding: 30px 10px; }
+    .content-sections { grid-template-columns: 1fr; }
+}
