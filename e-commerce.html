@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Store | Dark Edition</title>
+    <link rel="stylesheet" href="e-commerce.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">LUXE</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Wishlist</a></li>
+        </ul>
+        <div class="nav-icons">
+            <button id="theme-toggle" onclick="toggleDarkMode()">🌙</button>
+            <div class="cart-icon" onclick="toggleCart()">
+                <button class="shop-button">🛒 <span id="cart-count">0</span></button>
+                
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Summer Collection 2026</h1>
+        <p>Premium quality. Minimalist style.</p>
+        <button class="cta-main">Shop New Arrivals</button>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Trending Now</h2>
+        <div class="product-grid" id="product-list">
+            </div>
+    </main>
+
+    <div id="toast" class="toast">Item added to cart!</div>
+
+    <script src="e-commerce.js"></script>
+</body>
+</html>
