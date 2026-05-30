@@ -1,0 +1,239 @@
+/* Core Styling & Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b0f12; 
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Redesigned Glass Wrapper */
+.mother-container {
+    width: 100%;
+    max-width: 1200px;
+    background: #12161a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    background-image: radial-gradient(circle at 80% 20%, rgba(146, 179, 149, 0.05) 0%, transparent 60%);
+}
+
+/* Modern Header Bar */
+.upper {
+    background-color: #161b22;
+    height: 90px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 35px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+/* Top Stat Rows Layout */
+.study-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 35px 35px 15px 35px;
+}
+
+.stat-mini-card {
+    flex: 1;
+    min-width: 240px;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-mini-card h5 { 
+    font-size: 1.3rem; 
+    font-weight: 700; 
+    color: #ffffff; 
+}
+
+.stat-mini-card p { 
+    font-size: 0.85rem; 
+    color: #64748b; 
+}
+
+/* Branding Icon Elements */
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.yellow-glow { background: rgba(255, 179, 71, 0.1); color: #ffb347; }
+.purple-glow { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
+.blue-glow { background: rgba(129, 140, 248, 0.1); color: #818cf8; }
+
+/* Main Grid Architecture */
+.study-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px 35px 35px 35px;
+}
+
+/* Fixed Study Component Cards */
+.study-deck-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    min-height: 180px;
+    opacity: 0; /* Configured for the CSS structural fade-in entry */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: entry-up 0.4s ease-out forwards;
+}
+
+.study-deck-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(146, 179, 149, 0.3);
+    transform: translateY(-4px);
+}
+
+/* Header Meta Elements */
+.deck-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+.tag-yellow { background: rgba(255, 179, 71, 0.1); color: #ffb347; }
+.tag-purple { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
+.tag-blue { background: rgba(129, 140, 248, 0.1); color: #818cf8; }
+.tag-green { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+
+.card-count { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.deck-title { font-size: 1.15rem; font-weight: 600; color: #ffffff; line-height: 1.4; }
+.deck-meta { font-size: 0.8rem; color: #94a3b8; }
+
+/* Interactive Deck Action Triggers */
+.deck-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 15px;
+}
+
+.study-action-btn {
+    background: #161b22;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #92b395;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.study-action-btn:hover {
+    background: #92b395;
+    color: #12161a;
+    border-color: #92b395;
+}
+
+/* User Status Metrics */
+.buddies-active {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.buddies-active img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #12161a;
+}
+
+.active-pulse {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    border: 1.5px solid #12161a;
+}
+
+.avatar-placeholder {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #12161a;
+}
+
+/* Sequential Stagger Animation Control Engines */
+.study-deck-card:nth-child(1) { animation-delay: 0.05s; }
+#deck1 { animation-delay: 0.12s; }
+#deck2 { animation-delay: 0.19s; }
+#deck3 { animation-delay: 0.26s; }
+
+@keyframes entry-up {
+    from {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Custom Display Frameworks */
+@media screen and (max-width: 600px) {
+    .study-stats, .study-grid { padding: 20px; }
+    .study-stats { gap: 15px; }
+}

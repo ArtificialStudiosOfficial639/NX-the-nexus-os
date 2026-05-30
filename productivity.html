@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" description="A productivity dashboard inspired by FocusFlow, designed to help students manage their study sessions with a Pomodoro timer, task management, ambient sound controls, and social features.">
+    <title>FocusFlow Dashboard Clone</title>
+    <link rel="stylesheet" href="productivity.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-f"></i>
+                <span>FocusFlow</span>
+            </div>
+            
+            <div class="profile-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="Alex">
+                <h3>Alex</h3>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#" class="nav-item active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-chart-simple"></i> Analytics</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-users"></i> Study Rooms</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-clone"></i> Flashcards</a>
+            </nav>
+
+            <button class="focus-mode-btn footer-btn">
+                <span>Focus Mode</span>
+                <i class="fa-solid fa-sun"></i>
+            </button>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-nav">
+                <a href="#" class="tab active">Design</a>
+                <a href="pr-project.html" class="tab">Project</a>
+                <a href="study.html" class="tab">Study</a>
+            </header>
+
+            <h2>Deep Work Zone</h2>
+
+            <div class="timer-section">
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" viewBox="0 0 320 320">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffb347" />
+                                <stop offset="100%" stop-color="#b5e2b1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="progress-ring__background" stroke="#222" stroke-width="12" fill="transparent" r="140" cx="160" cy="160"/>
+                        <circle class="progress-ring__circle" stroke="url(#gradient)" stroke-width="12" fill="transparent" r="140" cx="160" cy="160"/>
+                    </svg>
+                    <div class="timer-display">
+                        <h1 id="timer-countdown">24:59</h1>
+                        <p>Drafting Chapter 3 Outline</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tasks-section">
+                <div class="section-header">
+                    <h3>Next Up</h3>
+                    <div class="arrow-controls">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="tasks-grid">
+                    <div class="task-card task-yellow">
+                        <div class="task-top">
+                            <input type="checkbox" checked>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <h4>Review Bio Notes</h4>
+                        <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
+                    </div>
+                    <div class="task-card task-purple">
+                        <div class="task-top">
+                            <input type="checkbox">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <h4>Math Problem Set</h4>
+                        <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
+                    </div>
+                    <div class="task-card task-blue">
+                        <div class="task-top">
+                            <input type="checkbox" checked>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <h4>Email Professor</h4>
+                        <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="context-panel">
+            <div class="panel-header">
+                <h3>Context Panel</h3>
+                <div class="header-icons">
+                    <div class="notification-badge">
+                        <i class="fa-regular fa-bell"></i>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="Alex" class="mini-avatar">
+                </div>
+            </div>
+
+            <div class="panel-section glass-card">
+                <h4>Ambient Sounds <i class="fa-solid fa-volume-high"></i></h4>
+                
+                <div class="sound-control">
+                    <div class="sound-info"><span>Rain</span> <i class="fa-solid fa-volume-high"></i></div>
+                    <input type="range" min="0" max="100" value="40" class="slider">
+                </div>
+                
+                <div class="sound-control">
+                    <div class="sound-info"><span>Cafe Chatter</span> <i class="fa-solid fa-volume-high"></i></div>
+                    <input type="range" min="0" max="100" value="65" class="slider purple-slider">
+                </div>
+                
+                <div class="sound-control">
+                    <div class="sound-info"><span>White Noise</span> <i class="fa-solid fa-volume-high"></i></div>
+                    <input type="range" min="0" max="100" value="20" class="slider">
+                </div>
+
+                <div class="spotify-integration">
+                    <span><i class="fa-brands fa-spotify"></i> Spotify</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+
+            <div class="panel-section glass-card">
+                <h4>Study Buddies</h4>
+                <div class="buddy-list">
+                    <div class="buddy">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="User">
+                        <span class="status-dot online"></span>
+                    </div>
+                    <div class="buddy">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="User">
+                        <span class="status-dot online"></span>
+                    </div>
+                    <div class="buddy">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=100" alt="User">
+                        <span class="status-dot online"></span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+    <script src="productivity.js"></script>
+</body>
+</html>

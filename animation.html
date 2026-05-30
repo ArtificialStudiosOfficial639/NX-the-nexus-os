@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      :root {
+  --bg-color: #0e0e0e;
+  --text-color: #fff;
+  --accent-color: #ff3e00;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.kinetic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-block {
+  overflow: hidden; /* Yeh letters ko 'hide' rakhta hai container ke bahar */
+  height: 12vw; /* Responsive height */
+  display: flex;
+  align-items: center;
+}
+
+.layer {
+  position: relative;
+  display: block;
+  font-size: 10vw; /* Responsive font size */
+  font-weight: 900;
+  color: var(--text-color);
+  line-height: 1;
+  transform: translateY(100%); /* Start position: Niche chhupa hua */
+  animation: slideUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Staggered Delay for responsiveness in timing */
+.text-block:nth-child(1) .layer { animation-delay: 0.2s; }
+.text-block:nth-child(2) .layer { animation-delay: 0.4s; color: var(--accent-color); }
+.text-block:nth-child(3) .layer { animation-delay: 0.6s; }
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0); /* Final position: Center mein */
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 600px) {
+  .layer {
+    font-size: 15vw; /* Mobile par thoda bada font */
+  }
+  .text-block {
+    height: 18vw;
+  }
+}
+    </style>
+</head>
+
+<div class="kinetic-container">
+  <div class="text-block">
+    <span class="layer" data-text="DESIGN">BE THE </span>
+  </div>
+  <div class="text-block">
+    <span class="layer" data-text="DEVELOP">FIRST TO</span>
+  </div>
+  <div class="text-block">
+    <span class="layer" data-text="DOMINATE">DOMINATE</span>
+  </div>
+</div>
+</body>
+
+</html>

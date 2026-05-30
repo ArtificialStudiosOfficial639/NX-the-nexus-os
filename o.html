@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Portal | Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="master-container">
+        <div class="brand-section">
+            <div class="logo-area">
+                <div class="logo-icon">V</div>
+                <span>VENTURE</span>
+            </div>
+            <div class="quote-area">
+                <p class="quote-text">"Precision is the soul of every successful enterprise."</p>
+                <p class="quote-author">— Corporate Insights</p>
+            </div>
+            <div class="legal-minimal">© 2026 Venture Inc.</div>
+        </div>
+
+        <div class="form-section">
+            <div class="login-form">
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Please enter your professional details.</p>
+
+                <div class="sso-wrapper">
+                    <button type="button" class="sso-btn">
+                        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                        <span>Google</span>
+                    </button>
+                    <button type="button" class="sso-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+                        <span>Office 365</span>
+                    </button>
+                </div>
+
+                <div class="divider"><span>or use email</span></div>
+
+                <form id="mainLoginForm">
+                    <div class="input-group">
+                        <input type="email" id="email" required placeholder=" ">
+                        <label for="email">Corporate Email</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="passInput" required placeholder=" ">
+                        <label for="passInput">Password</label>
+                        <span class="toggle-password" onclick="togglePass()">👁️</span>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        <span class="btn-text">Sign In to Dashboard</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+
+                <div class="footer-links">
+                    Don't have an account<a href="signin.html"> create one!</a>
+                    <div class="legal">
+                        <a href="#">Privacy Policy</a> • <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
